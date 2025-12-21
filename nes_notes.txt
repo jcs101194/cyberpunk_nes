@@ -1,18 +1,70 @@
 General
 
 
+-$ means 0x in old-timey 6502
+
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Architecture
 
 
 
-++++++++++++++++++++
+
+
+++++++++++++++++++++++++++++
 Picture Processing Unit (PPU)
 
 
+Address space: $0000 - $2FFF		# TODO: Check
 
-++++++++++++++++++++
+
+================
+PPU Nametable
+
+PPU Nametable - is a 1024 byte area of memory used by the PPU to layout backgrounds. Nametables are
+
+	-32 × 30 tiles
+	-Each tile is 8 × 8 pixels
+	-So each nametable covers 256 × 240 pixels
+	-Hence the diagram below
+
+
+
+     (0,0)     (256,0)     (511,0)
+       +-----------+-----------+
+       |           |           |
+       |           |           |
+       |   $2000   |   $2400   |
+       |           |           |
+       |           |           |
+(0,240)+-----------+-----------+(511,240)
+       |           |           |
+       |           |           |
+       |   $2800   |   $2C00   |
+       |           |           |
+       |           |           |
+       +-----------+-----------+
+     (0,479)   (256,479)   (511,479)
+
+
+$2000  top-left nametable		# Nametable 0
+$2400  top-right nametable		# Nametable 1
+$2800  bottom-left nametable	# Nametable 2
+$2C00  bottom-right nametable	# Nametable 3
+
+-Despite this, NES usually only has 2 physical nametables, not 4.
+
+
+================
+PPU Pattern tables
+
+-Also known as CHR data						# CHR as in "character"
+-Essentially where sprite sheet lives in
+
+Address: $0000-$1FFF
+
+
+++++++++++++++++++++++++++++
 Mappers
 
 Mapper - logic inside the cartridge which gives the cpu the needed ROM bank to read
@@ -69,4 +121,15 @@ Action53
 -Used for compilation / multicart projects
 -Not typically used for single standalone games
 
-++++++++++++++++++++
+
+++++++++++++++++++++++++++++
+CHR-ROM/RAM
+
+-CHR-ROM - stores graphics on the cartridge and is visible at reset.
+-CHR-RAM - starts empty and must be filled by the CPU at runtime, i.e. programatically
+
+-With CHR-ROM, graphics are included in the cartridge and mapped by
+hardware to PPU $0000–$1FFF; the CPU never writes tile data at runtime.
+
+
+
