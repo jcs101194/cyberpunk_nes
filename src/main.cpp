@@ -4,6 +4,7 @@
 #define PPUCTRL   (*(volatile uint8_t*)0x2000)
 #define PPUMASK   (*(volatile uint8_t*)0x2001)
 #define PPUSTATUS (*(volatile uint8_t*)0x2002)
+#define PPUSCROLL (*(volatile uint8_t*)0x2005)
 #define PPUADDR   (*(volatile uint8_t*)0x2006)
 #define PPUDATA   (*(volatile uint8_t*)0x2007)
 
@@ -18,19 +19,26 @@ static const uint8_t palette[16] =
 // Simple busy-wait (NOP loop)
 static void wait_vblank()
 {
-    while (!(PPUSTATUS & 0x80))
-        ;
+	// Wait for any current vblank to end
+    while (PPUSTATUS & 0x80){    }
+
+    // Wait for next vblank to start
+    while (!(PPUSTATUS & 0x80)){    }
 }
 
 // Write a string to the nametable at a given address
-static void ppu_write_string(uint16_t addr, const char* str)
+static void ppu_print(uint8_t x, uint8_t y, const char* str)
 {
+    uint16_t addr = 0x2000 + (y * 32) + x;
+
+    (void)PPUSTATUS;              // reset $2006 latch
     PPUADDR = addr >> 8;
     PPUADDR = addr & 0xFF;
 
     while (*str)
     {
-        PPUDATA = (*str++) - 32; // ASCII → NES tile index
+        PPUDATA = (uint8_t)(*str - 32);
+        str++;
     }
 }
 
@@ -61,17 +69,19 @@ int main()
 
     // Wait for VBlank so PPU is ready
     wait_vblank();
+    wait_vblank();
 
-	// Debugging sanity lol
+	// Load palette
 	ppu_write(0x3F, 0x00, palette, 16);
-	ppu_write_tile(0x2000 + 0x42, 0x21);
-	ppu_write_tile(0x2000 + 0x43, 0x22);
-	ppu_write_tile(0x2000 + 0x44, 0x23);
+	ppu_print(10, 14, "HELLO JUAN");
 
-    // Write "HELLO WORLD" to nametable $2000 (top-left area)
-    //ppu_write_string(0x2000 + 0x42, "HELLO WORLD");
+	// Set scroll to 0,0 (important)
+	(void) PPUSTATUS;
+	PPUSCROLL = 0;
+	PPUSCROLL = 0;
+
     // Enable background rendering
-    PPUMASK = 0x08; // show background
+    PPUMASK = 0x08;
 
     // Main loop (NES never exits)
     while (1)
