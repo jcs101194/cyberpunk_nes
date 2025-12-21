@@ -1,0 +1,72 @@
+General
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Architecture
+
+
+
+++++++++++++++++++++
+Picture Processing Unit (PPU)
+
+
+
+++++++++++++++++++++
+Mappers
+
+Mapper - logic inside the cartridge which gives the cpu the needed ROM bank to read
+
+	-The CPU tells the mapper which bank it wants
+	-Mapper switches which part of the cartridge is being read
+	-The NES itself never knows when this happens
+
+
+NROM
+-No bank switching
+-16 KB or 32 KB PRG-ROM
+-8 KB CHR-ROM
+-Simplest NES cartridge
+-Best for learning and very small games
+
+UNROM
+-Switchable PRG-ROM banks
+-Fixed 8 KB CHR-RAM (graphics loaded at runtime)
+-More code space than NROM
+-Simple upgrade path from NROM
+
+UNROM-512
+-Extended UNROM variant
+-Up to 512 KB PRG-ROM
+-CHR-RAM only
+-Popular for modern NES homebrew projects
+
+CNROM
+-Fixed PRG-ROM
+-Switchable CHR-ROM banks
+-Good for games with many graphics but small code size
+
+MMC1
+-Switchable PRG-ROM and CHR-ROM/RAM
+-Supports battery-backed saves
+-Flexible memory layouts
+-Used by early large NES games (Zelda, Metroid)
+
+MMC3
+-Advanced PRG-ROM and CHR-ROM bank switching
+-Scanline IRQs for mid-frame effects
+-Large ROM support
+-Used by visually complex NES games (SMB3, Mega Man 3+)
+
+-GTROM
+-Modern homebrew mapper
+-Very large PRG-ROM support
+-Uses CHR-RAM
+-Designed for ease of development over historical accuracy
+
+Action53
+-Multi-game cartridge mapper
+-Used for compilation / multicart projects
+-Not typically used for single standalone games
+
+++++++++++++++++++++
