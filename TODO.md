@@ -23,5 +23,7 @@
 ## Tooling
 
 - [x] Add C++ syntax highlighting
-- [ ] Finish Makefile
+- [x] Finish Makefile
 - [ ] Finish progress script
+- [ ] Improve testing pipeline, at least make the scp go to local
+

@@ -71,12 +71,12 @@ int main()
     PPUCTRL = 0x00;
 
     // Wait for VBlank so PPU is ready
-    wait_vblank();
-    wait_vblank();
+	PPU::wait_vblank();
+	PPU::wait_vblank();
 
 	// Load palette
-	ppu_write(0x3F, 0x00, palette, 16);
-	ppu_print(10, 14, "HELLO JUAN");
+	PPU::write(0x3F, 0x00, PPU::palette, 16);
+	PPU::print(10, 14, "HELLO JUAN");
 
 	// Set scroll to 0,0 (important)
 	(void) PPUSTATUS;
