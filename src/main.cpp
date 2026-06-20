@@ -3,19 +3,19 @@
 namespace PPU {
 
 	// NES PPU registers
-#define PPUCTRL   (*(volatile uint8_t*)0x2000)
-#define PPUMASK   (*(volatile uint8_t*)0x2001)
-#define PPUSTATUS (*(volatile uint8_t*)0x2002)
-#define PPUSCROLL (*(volatile uint8_t*)0x2005)
-#define PPUADDR   (*(volatile uint8_t*)0x2006)
-#define PPUDATA   (*(volatile uint8_t*)0x2007)
+	#define PPUCTRL   (*(volatile uint8_t*)0x2000)
+	#define PPUMASK   (*(volatile uint8_t*)0x2001)
+	#define PPUSTATUS (*(volatile uint8_t*)0x2002)
+	#define PPUSCROLL (*(volatile uint8_t*)0x2005)
+	#define PPUADDR   (*(volatile uint8_t*)0x2006)
+	#define PPUDATA   (*(volatile uint8_t*)0x2007)
 
 	static const uint8_t palette[16] =
 	{
-		0x0F, 0x20, 0x10, 0x00, // BG palette 0
-		0x0F, 0x00, 0x00, 0x00, // BG palette 1
-		0x0F, 0x00, 0x00, 0x00, // BG palette 2
-		0x0F, 0x00, 0x00, 0x00  // BG palette 3
+		0x0F, 0x30, 0x30, 0x30, // BG palette 0
+		0x0F, 0x30, 0x30, 0x30, // BG palette 1
+		0x0F, 0x30, 0x30, 0x30, // BG palette 2
+		0x0F, 0x30, 0x30, 0x30  // BG palette 3
 	};
 
 	// Simple busy-wait (NOP loop)
@@ -84,7 +84,10 @@ int main()
 	PPUSCROLL = 0;
 
     // Enable background rendering
-    PPUMASK = 0x08;
+    //PPUMASK = 0x08;
+    PPUMASK = 0x1E;
+
+	PPU::wait_vblank();
 
     // Main loop (NES never exits)
     while (1)
