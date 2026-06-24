@@ -33,7 +33,7 @@ namespace PPU {
 	{
 		uint16_t addr = 0x2000 + (y * 32) + x;
 
-		(void)PPUSTATUS;              // reset $2006 latch
+		(void) PPUSTATUS;              // reset $2006 latch
 		PPUADDR = addr >> 8;
 		PPUADDR = addr & 0xFF;
 
@@ -46,7 +46,7 @@ namespace PPU {
 
 	static void write_tile(uint16_t addr, uint8_t tile)
 	{
-		(void)PPUSTATUS; // reset latch
+		(void) PPUSTATUS; // reset latch
 		PPUADDR = (uint8_t)(addr >> 8);
 		PPUADDR = (uint8_t)(addr & 0xFF);
 		PPUDATA = tile;
@@ -54,7 +54,7 @@ namespace PPU {
 
 	static void write(uint8_t addr_hi, uint8_t addr_lo, const uint8_t* data, uint16_t len)
 	{
-		(void)PPUSTATUS; // reset $2006 latch
+		(void) PPUSTATUS; // reset $2006 latch
 		PPUADDR = addr_hi;
 		PPUADDR = addr_lo;
 		for (uint16_t i = 0; i < len; i++)
