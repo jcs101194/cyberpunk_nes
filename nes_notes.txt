@@ -7,7 +7,26 @@ General
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Architecture
 
++--------------------------------------------------------+
+| Part                 |                      Rough spec |
+| -------------------- | ------------------------------: |
+| CPU                  |   Ricoh 2A03, based on MOS 6502 |
+| CPU speed            |                  ~1.79 MHz NTSC |
+| Internal RAM         |                        **2 KB** |
+| PPU/video RAM        | usually **2 KB nametable VRAM** |
+| Sprite/OAM RAM       |                       256 bytes |
+| Palette RAM          |                        32 bytes |
+| Max sprites          |        64 total, 8 per scanline |
+| Background tile size |                          8×8 px |
+| Screen resolution    |                         256×240 |
++--------------------------------------------------------+
 
+
+# Addressable Space
+$0000-$07FF   Internal RAM
+$2000-$2007   PPU registers
+$4000-$4017   APU/Controllers
+$8000-$FFFF   Cartridge ROM
 
 
 
@@ -24,8 +43,8 @@ PPU Nametable
 PPU Nametable - is a 1024 byte area of memory used by the PPU to layout backgrounds. Nametables are
 
 	-32 × 30 tiles
-	-Each tile is 8 × 8 pixels
-	-So each nametable covers 256 × 240 pixels
+	-Each tile is 8 × 8 pixels						# That is, what pixels in that tile do
+	-So each nametable covers 256 × 240 pixels		# you highlight to make an image
 	-Hence the diagram below
 
 
@@ -55,13 +74,21 @@ $2C00  bottom-right nametable	# Nametable 3
 -Despite this, NES usually only has 2 physical nametables, not 4.
 
 
-================
 PPU Pattern tables
 
 -Also known as CHR data						# CHR as in "character"
 -Essentially where sprite sheet lives in
 
 Address: $0000-$1FFF
+
+
+================
+Object Attribute Memory (OAM)
+
+
+-Does this
+
+	Draw tile $42 at x=100, y=80		# The tile is loaded in the name table
 
 
 ++++++++++++++++++++++++++++

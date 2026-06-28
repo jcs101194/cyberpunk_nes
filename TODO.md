@@ -6,11 +6,13 @@
 - [x] Get the glyphs to show
 - [ ] Get a sprite to render
 - [ ] Get sprite to move
+- [ ] Write a control class
 
 ## Gameplay
 
 - [ ] Write level logic
 - [ ] Write a HUD
+- [ ] Write a Start Menu
 
 ## Art
 
@@ -18,12 +20,11 @@
 
 ## Cleanup
 
-- [ ] Move PPU into namespace
 
 ## Tooling
 
 - [x] Add C++ syntax highlighting
 - [x] Finish Makefile
-- [ ] Finish progress script
+- [x] Finish progress script
 - [ ] Improve testing pipeline, at least make the scp go to local
 
