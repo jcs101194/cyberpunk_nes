@@ -1,5 +1,5 @@
 ROM_NAME := Cyber Platform
-TARGET   := nes-nrom
+TARGET   := nes-mmc3
 
 CXX      := mos-$(TARGET)-clang++
 CXXFLAGS := -Os

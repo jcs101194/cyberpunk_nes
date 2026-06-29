@@ -2,6 +2,27 @@ General
 
 
 -$ means 0x in old-timey 6502
+-There are 2 bits per pixel
+
+# Basic, Must-know Terminology
+Nametable - the part that says which tile goes where on the background screen
+Pattern Table - an area in PPU address space that stores CHR data
+CHR - any sprite or background data that is stored in a pattern table
+Mapper - logic inside the cartridge which gives the CPU the needed ROM bank to read
+
+PRG-ROM:
+- CPU code
+- compiled C++ functions
+- constants/tables used by CPU
+- level data, collision data, scripts, text, AI tables, etc.
+- mapped into CPU address space, usually $8000-$FFFF
+
+CHR-ROM:
+- graphics tile data
+- 8x8 tile patterns
+- background tiles
+- sprite tiles
+- visible to the PPU at PPU $0000-$1FFF
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -22,12 +43,23 @@ Architecture
 +--------------------------------------------------------+
 
 
-# Addressable Space
+# CPU Address Space
 $0000-$07FF   Internal RAM
 $2000-$2007   PPU registers
 $4000-$4017   APU/Controllers
-$8000-$FFFF   Cartridge ROM
+$8000-$FFFF   Cartridge ROM				# 64 KB of addressable space (65,356 bytes)
 
+PPU Address Space
+$0000-$0FFF   Pattern table 0			# 4 KB?
+$1000-$1FFF   Pattern table 1			# 4 KB?
+$2000-$23FF   Nametable 0
+$2400-$27FF   Nametable 1
+$2800-$2BFF   Nametable 2
+$2C00-$2FFF   Nametable 3
+$3000-$3EFF   Mirrors of $2000-$2EFF
+$3F00-$3F0F   Background palettes
+$3F10-$3F1F   Sprite palettes
+$3F20-$3FFF   Mirrors of $3F00-$3F1F
 
 
 ++++++++++++++++++++++++++++
@@ -47,6 +79,8 @@ PPU Nametable - is a 1024 byte area of memory used by the PPU to layout backgrou
 	-So each nametable covers 256 × 240 pixels		# you highlight to make an image
 	-Hence the diagram below
 
+
+			  Nametable
 
 
      (0,0)     (256,0)     (511,0)
