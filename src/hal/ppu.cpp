@@ -1,8 +1,8 @@
-#include "ppu.hpp"
+#include "ppu.h"
 
 namespace PPU {
 
-    const uint8_t palette[32] =
+    extern const uint8_t palette[32] =
     {
         0x0F, 0x30, 0x30, 0x30, // BG palette 0
         0x0F, 0x30, 0x30, 0x30, // BG palette 1
@@ -20,10 +20,10 @@ namespace PPU {
     void wait_vblank()
     {
         // Wait for any current vblank to end
-        while (PPUSTATUS & 0x80){    }
+        while (PPU_STATUS & 0x80){    }
 
         // Wait for next vblank to start
-        while (!(PPUSTATUS & 0x80)){    }
+        while (!(PPU_STATUS & 0x80)){    }
     }
 
     // Write a string to the nametable at a given address
@@ -31,33 +31,33 @@ namespace PPU {
     {
         uint16_t addr = 0x2000 + (y * 32) + x;
 
-        (void) PPUSTATUS;              // reset $2006 latch
-        PPUADDR = addr >> 8;
-        PPUADDR = addr & 0xFF;
+        (void) PPU_STATUS;              // reset $2006 latch
+        PPU_ADDR = addr >> 8;
+        PPU_ADDR = addr & 0xFF;
 
         while (*str)
         {
-            PPUDATA = (uint8_t)(*str - 32);
+            PPU_DATA = (uint8_t)(*str - 32);
             str++;
         }
     }
 
     void write_tile(uint16_t addr, uint8_t tile)
     {
-        (void) PPUSTATUS; // reset latch
-        PPUADDR = (uint8_t)(addr >> 8);
-        PPUADDR = (uint8_t)(addr & 0xFF);
-        PPUDATA = tile;
+        (void) PPU_STATUS; // reset latch
+        PPU_ADDR = (uint8_t)(addr >> 8);
+        PPU_ADDR = (uint8_t)(addr & 0xFF);
+        PPU_DATA = tile;
     }
 
     void write(uint8_t addr_hi, uint8_t addr_lo, const uint8_t* data, uint16_t len)
     {
-        (void) PPUSTATUS; // reset $2006 latch
-        PPUADDR = addr_hi;
-        PPUADDR = addr_lo;
+        (void) PPU_STATUS; // reset $2006 latch
+        PPU_ADDR = addr_hi;
+        PPU_ADDR = addr_lo;
         for (uint16_t i = 0; i < len; i++)
         {
-            PPUDATA = data[i];
+            PPU_DATA = data[i];
         }
     }
 

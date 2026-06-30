@@ -1,0 +1,6 @@
+#pragma once
+
+#define GAME_VERSION_MAJOR 0
+#define GAME_VERSION_MINOR 0
+#define GAME_VERSION_PATCH 44
+#define GAME_VERSION "0.0.44"

@@ -13,7 +13,7 @@
     - [ ] Add/load sprite palettes at $3F10-$3F1F
     - [ ] Clear OAM before placing sprites
     - [ ] Write one test sprite into OAM
-    - [ ] Enable sprite rendering with PPUMASK
+    - [ ] Enable sprite rendering with PPU_MASK
     - [ ] Verify sprite appears in Mesen/FCEUX
 - [ ] Get sprite to move
 - [ ] Write a control class

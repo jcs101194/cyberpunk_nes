@@ -1,11 +1,17 @@
 #include <stdint.h>
-#include "hal/ppu.cpp"
+
+#include "version.h"
+
+#include "hal/ppu.h"
+#include "hal/mmc3.h"
 
 int main()
 {
+	MMC3::init();
+
     // Disable rendering
-    PPUMASK = 0x00;
-    PPUCTRL = 0x00;
+    PPU_MASK = 0x00;
+    PPU_CTRL = 0x00;
 
     // Wait for VBlank so PPU is ready
 	PPU::wait_vblank();
@@ -14,15 +20,17 @@ int main()
 	// Load palette
 	PPU::write(0x3F, 0x00, PPU::palette, 32);
 	PPU::print(10, 1, "HELLO JUAN");
+	// Version Number
+	PPU::print(10, 230, "Version " GAME_VERSION);
 
 	// Set scroll to 0,0 (important)
-	(void) PPUSTATUS;
-	PPUSCROLL = 0;
-	PPUSCROLL = 0;
+	(void) PPU_STATUS;
+	PPU_SCROLL = 0;
+	PPU_SCROLL = 0;
 
     // Enable background rendering
-    //PPUMASK = 0x08;
-    PPUMASK = 0x1E;
+    //PPU_MASK = 0x08;
+    PPU_MASK = 0x1E;
 
 	PPU::wait_vblank();
 
