@@ -7,7 +7,7 @@
 
 int main()
 {
-	MMC3::init();
+	//MMC3::init();
 
     // Disable rendering
     PPU_MASK = 0x00;
@@ -19,9 +19,8 @@ int main()
 
 	// Load palette
 	PPU::write(0x3F, 0x00, PPU::palette, 32);
-	PPU::print(10, 1, "HELLO JUAN");
 	// Version Number
-	PPU::print(10, 230, "Version " GAME_VERSION);
+	PPU::print(10, 29, "Version " GAME_VERSION);
 
 	// Set scroll to 0,0 (important)
 	(void) PPU_STATUS;
@@ -29,7 +28,6 @@ int main()
 	PPU_SCROLL = 0;
 
     // Enable background rendering
-    //PPU_MASK = 0x08;
     PPU_MASK = 0x1E;
 
 	PPU::wait_vblank();
