@@ -51,7 +51,7 @@ namespace MMC3
 
             $C000-$DFFF and $E000-$FFFF are fixed/special depending on PRG mode.
         */
-        set_prg_bank(6, 0);
-        set_prg_bank(7, 1);
+        //set_prg_bank(6, 0);
+        //set_prg_bank(7, 1);
     }
 }

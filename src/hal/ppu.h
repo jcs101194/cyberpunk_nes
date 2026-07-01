@@ -19,8 +19,12 @@ namespace PPU
 	extern const uint8_t palette[32];
 
     void wait_vblank();
-    void write(uint8_t high, uint8_t low, const uint8_t* data, uint16_t len);
     void print(uint8_t x, uint8_t y, const char* text);
+	void write_tile(uint16_t addr, uint8_t);
+    void write(uint8_t high, uint8_t low, const uint8_t* data, uint16_t len);
+	void write_sprite(uint8_t index, uint8_t y, uint8_t tile, uint8_t attr, uint8_t x);
+	void clear_oam();
+
 }
 
 #endif

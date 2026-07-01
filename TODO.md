@@ -10,7 +10,7 @@
     - [x] Convert Hexany PNG tileset to CHR
     - [x] Reorganize assets into raw/build CHR directories
     - [x] Update chr.s to include CHR assets
-    - [ ] Add/load sprite palettes at $3F10-$3F1F
+    - [x] Add/load sprite palettes at $3F10-$3F1F
     - [ ] Clear OAM before placing sprites
     - [ ] Write one test sprite into OAM
     - [ ] Enable sprite rendering with PPUMASK

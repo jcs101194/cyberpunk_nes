@@ -7,7 +7,7 @@
 
 int main()
 {
-	//MMC3::init();
+	MMC3::init();
 
     // Disable rendering
     PPU_MASK = 0x00;
@@ -19,6 +19,9 @@ int main()
 
 	// Load palette
 	PPU::write(0x3F, 0x00, PPU::palette, 32);
+	// Test Draw
+	PPU::write_tile(0x2026, 0x61);
+
 	// Version Number
 	PPU::print(10, 29, "Version " GAME_VERSION);
 
